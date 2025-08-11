@@ -29,6 +29,39 @@ namespace RealEstate.Infrastructure
                 .WithMany(p => p.Favorites)
                 .HasForeignKey(f => f.PropertyId);
 
+            // Property Configuration
+            modelBuilder.Entity<Property>(entity =>
+            {
+                entity.HasKey(p => p.Id);
+
+                entity.Property(p => p.Title)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(p => p.Price)
+                    .HasColumnType("decimal(18,2)")
+                    .IsRequired();
+
+                entity.Property(p => p.Address)
+                    .IsRequired()
+                    .HasMaxLength(300);
+
+                entity.Property(p => p.BedroomCount)
+                    .HasDefaultValue(0);
+
+                entity.Property(p => p.BathroomCount)
+                    .HasDefaultValue(0);
+
+                entity.Property(p => p.CarspotCount)
+                    .HasDefaultValue(0);
+
+                entity.Property(p => p.Description)
+                    .HasMaxLength(1000);
+
+                entity.Property(p => p.ImageUrl)
+                    .HasMaxLength(500);
+            });
+
             base.OnModelCreating(modelBuilder);
         }
     }

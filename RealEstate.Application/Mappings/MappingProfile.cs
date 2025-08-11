@@ -16,6 +16,9 @@ namespace RealEstate.Application.Mappings
 
             // Property
             CreateMap<Property, PropertyDto>().ReverseMap();
+
+            // Favourites
+            CreateMap<Favorite, FavoriteDto>().ReverseMap();
         }
     }
 }

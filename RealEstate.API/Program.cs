@@ -11,6 +11,8 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using RealEstate.Domain;
 using RealEstate.Application.Services.Security;
+using Microsoft.OpenApi.Models;
+using RealEstate.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,38 @@ builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 // Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPropertyService, PropertyService>();
+builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "RealEstate API", Version = "v1" });
+
+    // Add JWT Bearer Auth
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer", // Set the authentication scheme to Bearer
+        Description = "JWT Authorization header using Bearer scheme. Example: 'Bearer {token}'"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
+
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -69,9 +103,10 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-//  Middlewares 
+// Auth Middlewares 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<UserIdMiddleware>();
 
 app.MapControllers();
 
