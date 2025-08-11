@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstate.Application.Interfaces;
-using RealEstate.Domain;
+using RealEstate.Domain.Entities;
 
 namespace RealEstate.Infrastructure.Repositories
 {

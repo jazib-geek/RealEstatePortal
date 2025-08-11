@@ -5,7 +5,7 @@ using RealEstate.Application.Interfaces;
 namespace RealEstate.API.Controllers
 {
     [ApiController]
-    [Route("auth")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -45,7 +45,8 @@ namespace RealEstate.API.Controllers
             return Ok(new
             {
                 token = response.Data, // JWT token 
-                message = response.Message
+                message = response.Message,
+                email = dto.Email,
             });
         }
     }

@@ -5,8 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RealEstate.Domain.Enums;
 
-namespace RealEstate.Domain
+namespace RealEstate.Domain.Entities
 {
     public class Property
     {
@@ -39,6 +40,8 @@ namespace RealEstate.Domain
 
         [MaxLength(500)]
         public string? ImageUrl { get; set; }
+
+        public ListingType ListingType { get; set; }
 
         public ICollection<Favorite>? Favorites { get; set; }
     }

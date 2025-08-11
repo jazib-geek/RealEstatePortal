@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstate.Application.Interfaces;
-using RealEstate.Domain;
+using RealEstate.Domain.Entities;
 
 namespace RealEstate.Infrastructure.Repositories
 {
@@ -13,6 +13,7 @@ namespace RealEstate.Infrastructure.Repositories
         {
             return await _context.Favorites
                 .Where(f => f.UserId == userId)
+                .Include(f => f.User)
                 .Include(f => f.Property)
                 .AsNoTracking()
                 .ToListAsync();

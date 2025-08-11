@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RealEstate.Domain;
+using RealEstate.Domain.Entities;
 
 namespace RealEstate.Infrastructure
 {
@@ -60,6 +60,9 @@ namespace RealEstate.Infrastructure
 
                 entity.Property(p => p.ImageUrl)
                     .HasMaxLength(500);
+
+                entity.Property(p => p.ListingType)
+                 .HasConversion<string>();
             });
 
             base.OnModelCreating(modelBuilder);

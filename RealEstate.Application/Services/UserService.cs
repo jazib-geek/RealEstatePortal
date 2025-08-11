@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using RealEstate.Application.DTOs;
 using RealEstate.Application.Interfaces;
 using RealEstate.Application.Services.Security;
-using RealEstate.Domain;
+using RealEstate.Domain.Entities;
 
 namespace RealEstate.Application.Services
 {

@@ -1,8 +1,13 @@
 ﻿using RealEstate.Domain.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace RealEstate.Application.DTOs
 {
-    public class PropertyDto
+    public class PropertyCreateDto
     {
         public int Id { get; set; }
 
@@ -21,6 +26,6 @@ namespace RealEstate.Application.DTOs
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
-        public string ListingType { get; set; }
+        public ListingType ListingType { get; set; }
     }
 }

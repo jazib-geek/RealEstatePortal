@@ -8,7 +8,7 @@ namespace RealEstate.Application.Interfaces
     public interface IFavoriteService
     {
         Task<IEnumerable<FavoriteDto>> GetByUserIdAsync(int userId);
-        Task<ServiceResponse<FavoriteDto>> AddAsync(FavoriteDto dto);
+        Task<ServiceResponse<FavoriteDto>> AddAsync(FavoriteCreateDto dto);
         Task RemoveAsync(int userId, int propertyId);
     }
 }

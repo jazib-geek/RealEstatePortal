@@ -2,7 +2,7 @@
 using AutoMapper;
 using RealEstate.Application.DTOs;
 using RealEstate.Application.Interfaces;
-using RealEstate.Domain;
+using RealEstate.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,7 +25,7 @@ namespace RealEstate.Application.Services
             return _mapper.Map<IEnumerable<FavoriteDto>>(favorites);
         }
 
-        public async Task<ServiceResponse<FavoriteDto>> AddAsync(FavoriteDto dto)
+        public async Task<ServiceResponse<FavoriteDto>> AddAsync(FavoriteCreateDto dto)
         {
             var response = new ServiceResponse<FavoriteDto>();
 

@@ -6,11 +6,11 @@ namespace RealEstate.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PropertyController : ControllerBase
+    public class PropertiesController : ControllerBase
     {
         private readonly IPropertyService _service;
 
-        public PropertyController(IPropertyService service)
+        public PropertiesController(IPropertyService service)
         {
             _service = service;
         }
@@ -49,7 +49,7 @@ namespace RealEstate.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PropertyDto dto)
+        public async Task<IActionResult> Create(PropertyCreateDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -67,7 +67,7 @@ namespace RealEstate.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, PropertyDto dto)
+        public async Task<IActionResult> Update(int id, PropertyCreateDto dto)
         {
             if (id != dto.Id)
                 return BadRequest(new { message = "ID mismatch between route and body." });

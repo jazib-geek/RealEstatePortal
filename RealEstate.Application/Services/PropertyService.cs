@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using RealEstate.Application.DTOs;
 using RealEstate.Application.Interfaces;
-using RealEstate.Domain;
+using RealEstate.Domain.Entities;
 
 namespace RealEstate.Application.Services
 {
@@ -28,14 +28,14 @@ namespace RealEstate.Application.Services
             return _mapper.Map<PropertyDto>(prop);
         }
 
-        public async Task<PropertyDto> CreateAsync(PropertyDto dto)
+        public async Task<PropertyDto> CreateAsync(PropertyCreateDto dto)
         {
             var prop = _mapper.Map<Property>(dto);
             var created = await _repo.CreateAsync(prop);
             return _mapper.Map<PropertyDto>(created);
         }
 
-        public async Task<PropertyDto> UpdateAsync(int id, PropertyDto dto)
+        public async Task<PropertyDto> UpdateAsync(int id, PropertyCreateDto dto)
         {
             var existing = await _repo.GetByIdAsync(id);
             if (existing == null)

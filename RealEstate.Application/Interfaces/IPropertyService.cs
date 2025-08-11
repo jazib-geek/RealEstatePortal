@@ -6,8 +6,8 @@ namespace RealEstate.Application.Interfaces
     {
         Task<IEnumerable<PropertyDto>> GetAllAsync();
         Task<PropertyDto> GetByIdAsync(int id);
-        Task<PropertyDto> CreateAsync(PropertyDto dto);
-        Task<PropertyDto> UpdateAsync(int id, PropertyDto dto);
+        Task<PropertyDto> CreateAsync(PropertyCreateDto dto);
+        Task<PropertyDto> UpdateAsync(int id, PropertyCreateDto dto);
         Task<bool> DeleteAsync(int id);
     }
 }

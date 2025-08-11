@@ -1,5 +1,4 @@
-﻿using RealEstate.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using RealEstate.Domain.Entities;
 
 namespace RealEstate.Application.Services.Security
 {

@@ -9,16 +9,30 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
-using RealEstate.Domain;
 using RealEstate.Application.Services.Security;
 using Microsoft.OpenApi.Models;
 using RealEstate.API.Middlewares;
+using RealEstate.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // DB Context
 builder.Services.AddDbContext<RealEstateContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// CORS configuration
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(allowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
@@ -98,6 +112,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Allow CORS (URL is setup in appsettings)
+app.UseCors("AllowFrontend");
 
 // Swagger
 app.UseSwagger();

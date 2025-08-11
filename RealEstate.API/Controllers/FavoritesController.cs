@@ -17,7 +17,7 @@ public class FavoritesController : ControllerBase
         _favoriteService = favoriteService;
     }
 
-    [HttpGet("favorites")]
+    [HttpGet]
     public async Task<IActionResult> GetFavorites()
     {
         try
@@ -48,14 +48,16 @@ public class FavoritesController : ControllerBase
     }
 
 
-    [HttpPost]
-    public async Task<IActionResult> AddFavorite([FromBody] FavoriteDto dto)
+    [HttpPost("{propertyId}")]
+    public async Task<IActionResult> AddFavorite(int propertyId)
     {
         try
         {
             // Double check token
             if (!(HttpContext.Items["userId"] is int userId))
                 return Unauthorized(new { message = "User is not authenticated." });
+
+            FavoriteCreateDto dto = new FavoriteCreateDto() { UserId = userId, PropertyId = propertyId };
             var result = await _favoriteService.AddAsync(dto);
 
             if (!result.Success)
@@ -82,7 +84,7 @@ public class FavoritesController : ControllerBase
             if (!(HttpContext.Items["userId"] is int userId))
                 return Unauthorized(new { message = "User is not authenticated." });
             await _favoriteService.RemoveAsync(userId, propertyId);
-            
+
             return Ok(new { message = "Property removed from Favourites" });
         }
         catch (UnauthorizedAccessException ex)
