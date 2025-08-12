@@ -40,7 +40,7 @@ dotnet ef database update --project RealEstate.Infrastructure --startup-project 
 
 We have 20 sample properties in JSON format for quick setup and testing.
 
-RealEstate.Infrastructure/Data/SeedData/properties.json
+RealEstate.API/Data/SeedData/properties.json
 
 - ## CORS
 
