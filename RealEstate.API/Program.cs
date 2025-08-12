@@ -13,6 +13,8 @@ using RealEstate.Application.Services.Security;
 using Microsoft.OpenApi.Models;
 using RealEstate.API.Middlewares;
 using RealEstate.Domain.Entities;
+using RealEstate.Api.Data;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -103,6 +105,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
 //  Authorization
 builder.Services.AddAuthorization();
 
@@ -112,6 +115,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Seeding
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<RealEstateContext>();
+
+    dbContext.Database.Migrate();
+    await DataSeeder.SeedAsync(dbContext);
+}
 
 // Allow CORS (URL is setup in appsettings)
 app.UseCors("AllowFrontend");

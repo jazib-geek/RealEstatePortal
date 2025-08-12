@@ -16,11 +16,13 @@ namespace RealEstate.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice, [FromQuery] int? bedrooms,
+                                                [FromQuery] int? bathrooms
+  )
         {
             try
             {
-                var result = await _service.GetAllAsync();
+                var result = await _service.GetAllAsync(minPrice, maxPrice, bedrooms, bathrooms);
                 return Ok(result);
             }
             catch (Exception ex)

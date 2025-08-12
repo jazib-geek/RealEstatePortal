@@ -9,10 +9,25 @@ namespace RealEstate.Infrastructure.Repositories
         private readonly RealEstateContext _context;
         public PropertyRepository(RealEstateContext context) => _context = context;
 
-        public async Task<IEnumerable<Property>> GetAllAsync()
+        public async Task<IEnumerable<Property>> GetAllAsync(decimal? minPrice, decimal? maxPrice, int? bedrooms, int? bathrooms)
         {
-            return await _context.Properties.AsNoTracking().ToListAsync();
+            var query = _context.Properties.AsQueryable();
+
+            if (minPrice.HasValue)
+                query = query.Where(p => p.Price >= minPrice.Value);
+
+            if (maxPrice.HasValue)
+                query = query.Where(p => p.Price <= maxPrice.Value);
+
+            if (bedrooms.HasValue)
+                query = query.Where(p => p.BedroomCount == bedrooms.Value);
+
+            if (bathrooms.HasValue)
+                query = query.Where(p => p.BedroomCount == bathrooms.Value);
+
+            return await query.ToListAsync();
         }
+
 
         public async Task<Property?> GetByIdAsync(int id)
         {

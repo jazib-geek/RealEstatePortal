@@ -16,11 +16,12 @@ namespace RealEstate.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<PropertyDto>> GetAllAsync()
+        public async Task<IEnumerable<PropertyDto>> GetAllAsync(decimal? minPrice, decimal? maxPrice,int? bedrooms,int? bathrooms)
         {
-            var props = await _repo.GetAllAsync();
+            var props = await _repo.GetAllAsync(minPrice, maxPrice, bedrooms, bathrooms);
             return _mapper.Map<IEnumerable<PropertyDto>>(props);
         }
+
 
         public async Task<PropertyDto> GetByIdAsync(int id)
         {
