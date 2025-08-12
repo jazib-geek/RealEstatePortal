@@ -22,19 +22,19 @@ Before starting, ensure you have:
 - **SQL Server** (or compatible)
 - **EF Core CLI Tools** installed globally:
 
-## 🛠 Migrations
-
-If migrations already exist:
-
-dotnet ef migrations add InitialCreate --project RealEstate.Infrastructure --startup-project RealEstate.API
-dotnet ef database update --project RealEstate.Infrastructure --startup-project RealEstate.API
-
 - ## 🛠 Connection Strings
 Edit RealEstate.API/appsettings.json and place your server info
 
 "ConnectionStrings": {
   "DefaultConnection": "Server=YOUR_SERVER;Database=RealEstateDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
 }
+
+## 🛠 Migrations
+
+Run following Migrations to Create the DB
+
+dotnet ef migrations add InitialCreate --project RealEstate.Infrastructure --startup-project RealEstate.API
+dotnet ef database update --project RealEstate.Infrastructure --startup-project RealEstate.API
 
 - ## Seeding
 
